@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boeing vs Airbus</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            display: flex;
+            width: 800px;
+            height: 400px;
+        }
+
+        .boeing {
+            flex: 1;
+            background-color: blue;
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .airbus {
+            flex: 1;
+            background-color: red;
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .planes {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .plane-list {
+            list-style: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .plane-list li {
+            margin-bottom: 10px;
+        }
+
+        .plane-info {
+            display: none;
+        }
+
+        .back-button {
+            display: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="boeing">Boeing</div>
+        <div class="airbus">Airbus</div>
+        <div class="planes">
+            <ul class="plane-list">
+                <li data-plane="747">Boeing 747</li>
+                <li data-plane="777">Boeing 777</li>
+                <li data-plane="A320">Airbus A320</li>
+                <li data-plane="A380">Airbus A380</li>
+            </ul>
+            <div class="plane-info" id="planeInfo"></div>
+            <div class="back-button" id="backButton">Back</div>
+        </div>
+    </div>
+
+    <script>
+        const boeingSide = document.querySelector('.boeing');
+        const airbusSide = document.querySelector('.airbus');
+        const planeList = document.querySelector('.plane-list');
+        const planeInfo = document.querySelector('#planeInfo');
+        const backButton = document.querySelector('#backButton');
+
+        boeingSide.addEventListener('click', () => {
+            boeingSide.style.display = 'none';
+            airbusSide.style.display = 'block';
+            planeList.innerHTML = `
+                <li data-plane="747">Boeing 747</li>
+                <li data-plane="777">Boeing 777</li>
+            `;
+            planeInfo.style.display = 'none';
+            backButton.style.display = 'none';
+        });
+
+        airbusSide.addEventListener('click', () => {
+            boeingSide.style.display = 'block';
+            airbusSide.style.display = 'none';
+            planeList.innerHTML = `
+                <li data-plane="A320">Airbus A320</li>
+                <li data-plane="A380">Airbus A380</li>
+            `;
+            planeInfo.style.display = 'none';
+            backButton.style.display = 'none';
+        });
+
+        planeList.addEventListener('click', (event) => {
+            const plane = event.target.dataset.plane;
+            planeInfo.innerHTML = getPlaneInfo(plane);
+            planeInfo.style.display = 'block';
+            backButton.style.display = 'block';
+        });
+
+        backButton.addEventListener('click', () => {
+            planeInfo.style.display = 'none';
+            backButton.style.display = 'none';
+        });
+
+        function getPlaneInfo(plane) {
+            // You can add more information for each plane here
+            if (plane === '747') {
+                return '<h2>Boeing 747</h2><p>Some basic information about Boeing 747.</p>';
+            } else if (plane === '777') {
+                return '<h2>Boeing 777</h2><p>Some basic information about Boeing 777.</p>';
+            } else if (plane === 'A320') {
+                return '<h2>Airbus A320</h2><p>Some basic information about Airbus A320.</p>';
+            } else if (plane === 'A380') {
+                return '<h2>Airbus A380</h2><p>Some basic information about Airbus A380.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
